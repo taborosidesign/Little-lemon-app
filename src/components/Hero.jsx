@@ -4,7 +4,7 @@ import "../styles/Hero.css";
 
 const Hero = () => {
   return (
-    <section className="hero">
+    <section id="hero" className="hero">
       <div className="display-container">
         <div className="display-title">Little Lemon</div>
         <div className="display-subtitle">Chicago</div>
@@ -12,7 +12,7 @@ const Hero = () => {
           We are a family owned Mediterranean restaurant, focused on traditional
           recipes served with a modern twist.
         </div>
-        <Link to="/bookings" className="reserve-button">
+        <Link to="/reservation" className="reserve-button">
           Reserve a Table
         </Link>
       </div>

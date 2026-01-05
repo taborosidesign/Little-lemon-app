@@ -6,24 +6,16 @@ import bruschetta from "./assets/menu/bruschetta.jpg";
 import lemonDessert from "./assets/menu/lemonDessert.jpg";
 
 // LINKS FOR NAVBAR
-export const navLinks = [
-  { id: "1", title: "Home" },
-  { id: "2", title: "About" },
-  { id: "3", title: "Menu" },
-  { id: "4", title: "Reservations" },
-  { id: "5", title: "Contact" },
+export const navLinks = [          
+  { id: "1", title: "About", href: "#hero", targetId: "hero" },
+  { id: "2", title: "Menu", href: "#menu", targetId: "menu" },
+  { id: "3", title: "Reservations", href: "/reservation", targetId: "reservation" },
+  { id: "4", title: "Contact", href: "#contact", targetId: "contact" },
 ];
 
-// HERO TEXT
-export const heroText = {
-  heading: "Little Lemon",
-  subheading: "Chicago",
-  description:
-    "We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.",
-};
 
-// MENU SPECIALS
-export const specials = [
+// MENU
+export const menus = [
   {
     id: 1,
     image: greekSalad,
@@ -50,7 +42,6 @@ export const specials = [
   },
 ];
 
-// FOOTER SOCIAL LINKS (NINCS JSX A DATA-BAN)
 export const socials = [
   { id: 1, Icon: FaFacebook, link: "https://facebook.com" },
   { id: 2, Icon: FaInstagram, link: "https://instagram.com/" },

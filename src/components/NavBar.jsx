@@ -30,7 +30,10 @@ export default function NavBar() {
   }, []);
 
   useEffect(() => {
-    const ids = links.map((l) => String(l.title || "").toLowerCase());
+    const ids = links
+      .map((l) => l.targetId)
+      .filter(Boolean)
+      .filter((id) => id !== "home");
 
     const obs = new IntersectionObserver(
       (entries) => {
@@ -50,31 +53,71 @@ export default function NavBar() {
     return () => obs.disconnect();
   }, [links]);
 
+  useEffect(() => {
+    function onScroll() {
+      if (window.scrollY < 40) setActive("home");
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  function handleNavClick(link) {
+    return (e) => {
+      setOpen(false);
+
+
+      if (link.href === "/") {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setActive("home");
+        return;
+      }
+
+      if (typeof link.href === "string" && link.href.startsWith("#")) {
+        e.preventDefault();
+        const id = link.href.slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          setActive(id);
+        }
+      }
+    };
+  }
+
   return (
     <header className="nav">
       <div className="nav-inner" ref={menuRef}>
-        <a href="#home" className="nav-brand" onClick={() => setOpen(false)}>
+        <a
+          href="/"
+          className="nav-brand"
+          onClick={(e) => {
+            e.preventDefault();
+            setOpen(false);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            setActive("home");
+          }}
+        >
           <img src={logo} alt="Little Lemon Logo" className="nav-logo" />
         </a>
-        <nav
-          className={`nav-menu ${open ? "is-open" : ""}`}
-          aria-label="Primary"
-        >
+
+        <nav className={`nav-menu ${open ? "is-open" : ""}`} aria-label="Primary">
           {links.map((link) => {
-            const id = String(link.title || "").toLowerCase();
-            const isActive = active === id;
+            const isActive = active === link.targetId;
             return (
               <a
                 key={link.id}
-                href={`#${id}`}
+                href={link.href}
                 className={`nav-link ${isActive ? "is-active" : ""}`}
-                onClick={() => setOpen(false)}
+                onClick={handleNavClick(link)}
               >
                 {link.title}
               </a>
             );
           })}
         </nav>
+
         <button
           className={`nav-toggle ${open ? "is-open" : ""}`}
           type="button"
@@ -87,6 +130,7 @@ export default function NavBar() {
           <span className="nav-bar" />
         </button>
       </div>
+
       <div
         className={`nav-overlay ${open ? "is-open" : ""}`}
         onClick={() => setOpen(false)}

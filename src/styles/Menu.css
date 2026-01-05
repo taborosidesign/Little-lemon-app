@@ -1,0 +1,49 @@
+.menu {
+  min-height: 100vh;              
+  background-color: #5a6f68;
+  box-sizing: border-box;
+}
+
+.menu-header {
+  display: grid;
+  place-items: center;
+}
+
+.menu-title {
+  font-weight: 500;
+  font-size: 30px;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+/* ===== TABLET ===== */
+@media (min-width: 768px) {
+  .menu {
+    padding: 4rem 4rem;
+  }
+
+  .menu-title {
+    font-size: 64px;
+  }
+}
+
+/* ===== DESKTOP ===== */
+@media (min-width: 1024px) {
+  .menu {
+    min-height: 100vh;             /* desktop ok */
+    padding: 6rem 6rem;
+  }
+
+  .menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+/* ===== LARGE DESKTOP ===== */
+@media (min-width: 1440px) {
+  .menu {
+    padding: 10rem 16rem;
+  }
+}
